@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Sports Stream</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#0b0f19;
+color:white;
+}
+
+/* TOP NAV */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+background:#111827;
+border-bottom:1px solid #222;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:20px;
+font-weight:bold;
+}
+
+.logo img{
+width:40px;
+height:40px;
+border-radius:50%;
+}
+
+.live-badge{
+background:red;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{opacity:0.3;}
+}
+
+/* MAIN LAYOUT */
+.container{
+display:grid;
+grid-template-columns:2.5fr 1fr;
+gap:20px;
+padding:20px;
+max-width:1400px;
+margin:auto;
+}
+
+/* PLAYER */
+.player{
+background:black;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+.player iframe{
+width:100%;
+height:500px;
+border:none;
+}
+
+/* CHANNEL BUTTONS */
+.channels{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:15px;
+}
+
+.channel-btn{
+padding:10px 15px;
+background:#1f2937;
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.channel-btn:hover{
+background:#2563eb;
+}
+
+.channel-btn.active{
+background:#22c55e;
+}
+
+/* RIGHT PANEL */
+.sidebar{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.card{
+background:#111827;
+padding:15px;
+border-radius:12px;
+border:1px solid #222;
+}
+
+.match-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.teams{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:16px;
+}
+
+.score{
+font-size:22px;
+font-weight:bold;
+color:#22c55e;
+}
+
+/* SERVER BUTTONS */
+.server-btn{
+display:block;
+width:100%;
+margin-top:10px;
+padding:10px;
+border:none;
+border-radius:8px;
+background:#1f2937;
+color:white;
+cursor:pointer;
+}
+
+.server-btn:hover{
+background:#ef4444;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.container{
+grid-template-columns:1fr;
+}
+
+.player iframe{
+height:300px;
+}
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+<div class="logo">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png">
+Footlivein
+<span class="live-badge">● LIVE</span>
+</div>
+<div>LIVE NOW</div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+<!-- LEFT SIDE -->
+<div>
+
+<div class="player">
+<iframe id="streamPlayer"
+src="https://www.youtube.com/embed/jfKfPfyJRdk"
+allowfullscreen>
+</iframe>
+</div>
+
+<div class="channels">
+<button class="channel-btn active" onclick="changeChannel(1,this)">Channel 1</button>
+<button class="channel-btn" onclick="changeChannel(2,this)">Channel 2</button>
+<button class="channel-btn" onclick="changeChannel(3,this)">Channel 3</button>
+<button class="channel-btn" onclick="changeChannel(4,this)">Channel 4</button>
+</div>
+
+</div>
+
+<!-- RIGHT SIDE -->
+<div class="sidebar">
+
+<div class="card">
+<div class="match-title">⚽ LIVE MATCH</div>
+
+<div class="teams">
+<span>Qatar</span>
+<span class="score">2 - 1</span>
+<span>Argentina</span>
+</div>
+
+</div>
+
+<div class="card">
+<h3>Servers</h3>
+<button class="server-btn">Server 1 (HD)</button>
+<button class="server-btn">Server 2 (Backup)</button>
+<button class="server-btn">Server 3 (Low Latency)</button>
+</div>
+
+<div class="card">
+<h3>Match Info</h3>
+<p>FIFA-style live streaming demo page with channel switching and modern UI layout.</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const streams = {
+1:"https://www.youtube.com/embed/jfKfPfyJRdk",
+2:"https://www.youtube.com/embed/5qap5aO4i9A",
+3:"https://www.youtube.com/embed/21X5lGlDOfg",
+4:"https://player.vimeo.com/video/76979871"
+};
+
+function changeChannel(id,btn){
+
+document.getElementById("streamPlayer").src = streams[id];
+
+document.querySelectorAll(".channel-btn")
+.forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+}
+
+</script>
+
+</body>
+</html>
